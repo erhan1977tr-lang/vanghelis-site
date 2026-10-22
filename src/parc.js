@@ -2,6 +2,8 @@
 // pe măsură ce pagina este derulată. Totul este desenat în SVG (fără biblioteci 3D),
 // astfel încât, ulterior, scena poate fi înlocuită cu clipuri video reale.
 
+import { parc as parcCfg } from './config.js';
+
 const BODY = '#b38a35';
 const BODY_D = '#8a6a28';
 const DARK = '#1c1a17';
@@ -183,6 +185,13 @@ const STEPS = [
   { at: 0.83, eyebrow: 'Compactoare', title: 'Drumuri și platforme.', body: 'Cilindrare și compactare pentru căi de acces solide.' },
 ];
 
+// Texte pentru varianta video (poarta -> excavator -> încărcător)
+const VIDEO_STEPS = [
+  { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit în parcul de utilaje.', body: 'Derulează pentru a intra.' },
+  { at: 0.25, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
+  { at: 0.62, eyebrow: 'Încărcătoare', title: 'Încărcare și manipulare.', body: 'Pământ, moloz și agregate mutate rapid pe amplasament.' },
+];
+
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t) => t * t * (3 - 2 * t);
 const seg = (p, a, b) => ease(clamp((p - a) / (b - a)));
@@ -218,6 +227,7 @@ export function initParc(root) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   let W = 0, H = 0, target = 0, cur = 0, raf = null, step = -1;
+  let video = null, steps = STEPS;
 
   const resize = () => {
     W = stage.clientWidth; H = stage.clientHeight;
@@ -226,7 +236,36 @@ export function initParc(root) {
     el.wm.setAttribute('x', W - 24); el.wm.setAttribute('y', (W / H < 1 ? 64 : 84) + 22);
   };
 
+  const caption = (p) => {
+    bar.style.transform = `scaleX(${p.toFixed(4)})`;
+    let k = 0;
+    while (k < steps.length - 1 && p >= steps[k + 1].at) k++;
+    if (k !== step) {
+      step = k;
+      cap.classList.remove('is-in');
+      void cap.offsetWidth;
+      capEyebrow.textContent = steps[k].eyebrow;
+      capTitle.textContent = steps[k].title;
+      capBody.textContent = steps[k].body;
+      cap.classList.add('is-in');
+    }
+  };
+
+  // Video: o singură căutare (seek) activă odată; următoarea pornește după „seeked”
+  let wantT = 0, seeking = false;
+  const seek = () => {
+    if (seeking || Math.abs(video.currentTime - wantT) < 0.01) return;
+    seeking = true;
+    video.currentTime = wantT;
+  };
+
   const render = (p) => {
+    if (video) {
+      wantT = p * Math.max(0, video.duration - 0.05);
+      seek();
+      caption(p);
+      return;
+    }
     // pe ecrane înguste încadrăm ~820 unități, pe cele late ~1500
     const base = W / H < 1 ? W / 720 : Math.min(W / 1500, H / 860);
     const c = camAt(p);
@@ -259,18 +298,7 @@ export function initParc(root) {
     el.rl.setAttribute('transform', `translate(${dx} 0)`);
     el.drum.setAttribute('transform', `rotate(${(dx / 84) * 57.3} 170 -84)`);
 
-    bar.style.transform = `scaleX(${p.toFixed(4)})`;
-    let k = 0;
-    while (k < STEPS.length - 1 && p >= STEPS[k + 1].at) k++;
-    if (k !== step) {
-      step = k;
-      cap.classList.remove('is-in');
-      void cap.offsetWidth;
-      capEyebrow.textContent = STEPS[k].eyebrow;
-      capTitle.textContent = STEPS[k].title;
-      capBody.textContent = STEPS[k].body;
-      cap.classList.add('is-in');
-    }
+    caption(p);
   };
 
   const progress = () => {
@@ -295,4 +323,25 @@ export function initParc(root) {
   render(cur);
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { resize(); render(cur); });
+
+  // Videoul se descarcă întreg (Blob) ca derularea înapoi să fie fluidă; SVG-ul rămâne până e gata.
+  if (parcCfg.video && W >= parcCfg.minVideoWidth && !reduce.matches && window.fetch) {
+    fetch(parcCfg.video)
+      .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
+      .then((blob) => {
+        const v = document.createElement('video');
+        v.className = 'parc__video';
+        v.muted = true; v.playsInline = true; v.preload = 'auto';
+        v.setAttribute('aria-hidden', 'true');
+        v.addEventListener('seeked', () => { seeking = false; seek(); });
+        v.addEventListener('loadeddata', () => {
+          video = v; steps = VIDEO_STEPS; step = -1;
+          root.classList.add('is-video');
+          render(cur);
+        }, { once: true });
+        v.src = URL.createObjectURL(blob);
+        stage.insertBefore(v, svg);
+      })
+      .catch(() => {});
+  }
 }
