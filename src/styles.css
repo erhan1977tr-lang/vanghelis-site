@@ -409,7 +409,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- Parc utilaje (scenă derulată) ---------- */
-.parc { position: relative; height: 620vh; background: var(--coal); border-top: 1px solid var(--line); }
+.parc { position: relative; height: 430vh; background: var(--coal); border-top: 1px solid var(--line); }
 .parc__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .parc__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .p-sign { font-family: var(--font); font-weight: 800; font-size: 58px; letter-spacing: .06em; fill: var(--gold); font-variation-settings: 'wdth' 112; }
@@ -434,7 +434,7 @@ button { font: inherit; color: inherit; }
 .parc__progress span { display: block; height: 100%; background: var(--gold); transform-origin: left; transform: scaleX(0); }
 .parc__hint { position: absolute; z-index: 2; right: var(--gutter); bottom: 34px; font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); }
 @media (min-width: 1100px) { .parc__caption { left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); } }
-@media (max-width: 899px) { .parc { height: 560vh; } .parc__caption { padding: 16px 18px; bottom: 56px; } .p-watermark { display: none; } .parc__body { font-size: 15px; } }
+@media (max-width: 899px) { .parc { height: 480vh; } .parc__caption { padding: 16px 18px; bottom: 56px; } .p-watermark { display: none; } .parc__body { font-size: 15px; } }
 
 /* ---------- Zone (generic) ---------- */
 .zones__lead { margin-top: 32px; color: var(--text-dim); font-size: clamp(18px, 1.6vw, 21px); max-width: 40ch; }
@@ -460,3 +460,4 @@ button { font: inherit; color: inherit; }
 .contact__simple { max-width: 720px; }
 .contact__simple > p:not(.eyebrow) { color: var(--text-dim); margin-top: 20px; }
 .contact__simple .contact__info { margin-top: 28px; }
+.parc__caption[hidden] { display: none; }

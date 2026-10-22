@@ -185,11 +185,13 @@ const STEPS = [
   { at: 0.83, eyebrow: 'Compactoare', title: 'Drumuri și platforme.', body: 'Cilindrare și compactare pentru căi de acces solide.' },
 ];
 
-// Texte pentru varianta video (poarta -> excavator -> încărcător)
+// Texte pentru varianta video (poarta -> excavator -> încărcare în camion -> logo)
+// Un pas cu hide: true ascunde textul (finalul cu logo rămâne curat).
 const VIDEO_STEPS = [
   { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit în parcul de utilaje.', body: 'Derulează pentru a intra.' },
-  { at: 0.22, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
-  { at: 0.56, eyebrow: 'Încărcătoare', title: 'Încărcare și manipulare.', body: 'Pământ, moloz și agregate mutate rapid pe amplasament.' },
+  { at: 0.20, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
+  { at: 0.58, eyebrow: 'Încărcare și transport', title: 'Din cupă, direct în camion.', body: 'Pământ, piatră și agregate mutate rapid pe amplasament.' },
+  { at: 0.80, hide: true },
 ];
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -244,6 +246,8 @@ export function initParc(root) {
       step = k;
       cap.classList.remove('is-in');
       void cap.offsetWidth;
+      cap.hidden = !!steps[k].hide;
+      if (steps[k].hide) return;
       capEyebrow.textContent = steps[k].eyebrow;
       capTitle.textContent = steps[k].title;
       capBody.textContent = steps[k].body;
