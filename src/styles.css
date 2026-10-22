@@ -407,3 +407,49 @@ button { font: inherit; color: inherit; }
   .hero__dust { display: none; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- Parc utilaje (scenă derulată) ---------- */
+.parc { position: relative; height: 620vh; background: var(--coal); border-top: 1px solid var(--line); }
+.parc__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.parc__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.p-sign { font-family: var(--font); font-weight: 800; font-size: 58px; letter-spacing: .06em; fill: var(--gold); font-variation-settings: 'wdth' 112; }
+.p-sign-sub { font-family: var(--mono); font-size: 22px; letter-spacing: .4em; fill: var(--text-dim); }
+.p-mark { font-family: var(--font); font-weight: 800; font-size: 50px; fill: var(--gold); font-variation-settings: 'wdth' 125; }
+.p-board-k { font-family: var(--font); font-weight: 800; font-size: 50px; fill: var(--text); font-variation-settings: 'wdth' 112; }
+.p-board-s { font-family: var(--mono); font-size: 19px; letter-spacing: .1em; fill: var(--gold); }
+.p-board-xs { font-family: var(--mono); font-size: 15px; letter-spacing: .08em; fill: var(--text-dim); font-style: italic; }
+.p-watermark { font-family: var(--font); font-weight: 800; font-size: 13px; letter-spacing: .3em; fill: rgba(236,231,221,.28); text-anchor: end; }
+.parc__caption {
+  position: absolute; z-index: 2; left: var(--gutter); bottom: 64px;
+  max-width: min(460px, calc(100% - 2 * var(--gutter)));
+  padding: 22px 24px; background: rgba(18,17,16,.72); backdrop-filter: blur(6px);
+  border-left: 2px solid var(--gold);
+  opacity: 0; transform: translateY(10px);
+}
+.parc__caption.is-in { animation: rise .6s var(--ease) forwards; }
+.parc__caption .eyebrow { margin-bottom: 10px; }
+.parc__title { font-size: clamp(26px, 3.2vw, 42px); font-variation-settings: 'wdth' 112; font-weight: 750; letter-spacing: -0.02em; }
+.parc__body { margin-top: 10px; color: var(--text-dim); font-size: 16px; }
+.parc__progress { position: absolute; z-index: 2; left: var(--gutter); right: var(--gutter); bottom: 22px; height: 2px; background: var(--line); }
+.parc__progress span { display: block; height: 100%; background: var(--gold); transform-origin: left; transform: scaleX(0); }
+.parc__hint { position: absolute; z-index: 2; right: var(--gutter); bottom: 34px; font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); }
+@media (min-width: 1100px) { .parc__caption { left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); } }
+@media (max-width: 899px) { .parc { height: 560vh; } .parc__caption { padding: 16px 18px; bottom: 56px; } .p-watermark { display: none; } .parc__body { font-size: 15px; } }
+
+/* ---------- Zone (generic) ---------- */
+.zones__lead { margin-top: 32px; color: var(--text-dim); font-size: clamp(18px, 1.6vw, 21px); max-width: 40ch; }
+
+/* ---------- Semnătură / watermark ---------- */
+.watermark {
+  position: fixed; z-index: 40; left: 14px; bottom: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border: 1px solid rgba(236,231,221,.18); border-radius: 2px;
+  background: rgba(18,17,16,.55); backdrop-filter: blur(4px);
+  font-weight: 800; font-size: 11px; letter-spacing: .24em; text-decoration: none; color: rgba(236,231,221,.7);
+}
+.watermark span { font-family: var(--mono); font-weight: 400; letter-spacing: .14em; color: var(--gold); }
+.watermark:hover { color: var(--text); }
+.footer__credit a { color: var(--gold-hi); text-decoration: none; }
+.footer__credit a:hover { text-decoration: underline; }
+.footer__map { font-family: var(--mono); font-size: 11px; opacity: .5; width: 100%; }
+.footer__credit { opacity: 1; font-size: 12.5px; }

@@ -62,15 +62,8 @@ export const machines = [
     icon: 'miniroller',
   },
   {
-    id: 'autobasculante-raba',
-    name: 'Autobasculante RABA',
-    group: 'transport',
-    note: 'Pentru transport de pământ, moloz și agregate.',
-    icon: 'tipper',
-  },
-  {
-    id: 'autobasculante-trakker',
-    name: 'Autobasculante Trakker',
+    id: 'autobasculante',
+    name: 'Autobasculante',
     group: 'transport',
     note: 'Pentru transport de pământ, moloz și agregate.',
     icon: 'tipper',

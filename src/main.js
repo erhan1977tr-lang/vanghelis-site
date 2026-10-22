@@ -4,6 +4,7 @@ import '@fontsource/ibm-plex-mono/latin-400.css';
 import './styles.css';
 import { contact, hero } from './config.js';
 import { groups, machines, icons } from './fleet.js';
+import { initParc } from './parc.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -187,7 +188,6 @@ select.innerHTML = `
   if (contact.whatsapp) rows.push(['WhatsApp', `<a href="https://wa.me/${esc(contact.whatsapp)}" rel="noopener">Scrie-ne pe WhatsApp</a>`]);
   if (contact.address) rows.push(['Adresă', esc(contact.address)]);
   if (contact.hours) rows.push(['Program', esc(contact.hours)]);
-  rows.push(['Zone', 'Constanța, Tulcea, București, Ilfov și împrejurimi']);
   if (!contact.phone && !contact.email) rows.push(['Date de contact', '<span class="muted">Vor fi adăugate în versiunea finală.</span>']);
   dl.innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
 })();
@@ -256,7 +256,7 @@ modal.addEventListener('click', (e) => { if (e.target === modal || e.target.clos
 
 /* ---------- Hartă (încărcată la cerere) ---------- */
 const drawMap = (romania) => {
-  const served = { 'ro-ct': 'Constanța', 'ro-tl': 'Tulcea', 'ro-b': 'București', 'ro-if': 'Ilfov' };
+  const served = {};
   const paths = romania.locations.map((l) =>
     `<path d="${l.path}" class="${served[l.id] ? 'is-served' : ''}"><title>${l.id === 'ro-b' ? 'București' : l.name}</title></path>`).join('');
   // Etichete poziționate aproximativ pe centrele județelor (calculate după desenare).
@@ -272,10 +272,6 @@ const drawMap = (romania) => {
     labelsG.insertAdjacentHTML('beforeend',
       `<circle cx="${x}" cy="${y}" r="2.6"/><text x="${x + (anchor === 'end' ? -7 : anchor === 'start' ? 7 : 0)}" y="${y + (anchor === 'middle' ? -8 : 4)}" text-anchor="${anchor}">${text}</text>`);
   };
-  place('ro-ct', 'Constanța', 2, 6, 'start');
-  place('ro-tl', 'Tulcea', 6, -2, 'start');
-  place('ro-b', 'București', 0, 2, 'end');
-  place('ro-if', 'Ilfov', 8, -9, 'start');
 };
 new IntersectionObserver(([en], obs) => {
   if (!en.isIntersecting) return;
@@ -284,4 +280,5 @@ new IntersectionObserver(([en], obs) => {
 }, { rootMargin: '400px 0px' }).observe($('#zoneMap'));
 
 renderFleet();
+initParc(document.getElementById('parc'));
 observeReveals();
