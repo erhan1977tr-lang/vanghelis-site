@@ -369,7 +369,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* Footer */
-.footer { border-top: 1px solid var(--line); padding-top: 56px; background: #0d0c0b; }
+.footer { border-top: 1px solid var(--line); padding-top: 24px; padding-bottom: 64px; background: #0d0c0b; }
 .footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; padding-bottom: 40px; }
 .footer__brand p { color: var(--text-dim); max-width: 46ch; margin-top: 14px; font-size: 15px; }
 .footer__nav { display: flex; flex-wrap: wrap; gap: 12px 28px; }
@@ -457,3 +457,6 @@ button { font: inherit; color: inherit; }
 .parc.is-video .parc__svg { pointer-events: none; }
 .parc.is-video .p-sky, .parc.is-video #pFar, .parc.is-video #pWorld { display: none; }
 .parc.is-video .parc__stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(18,17,16,0) 55%, rgba(18,17,16,.55) 100%); }
+.contact__simple { max-width: 720px; }
+.contact__simple > p:not(.eyebrow) { color: var(--text-dim); margin-top: 20px; }
+.contact__simple .contact__info { margin-top: 28px; }

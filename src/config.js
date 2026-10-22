@@ -27,6 +27,6 @@ export const hero = {
 // Scena „Parc utilaje”: video opțional, derulat odată cu pagina (doar pe ecrane mari).
 // Fără video, scena este desenată în SVG.
 export const parc = {
-  video: null, // ex: 'video/parc.mp4' (codificat cu cadre cheie dese, vezi README)
+  video: 'video/parc.mp4', // codificat cu cadre cheie dese (-g 8) pentru derulare fluidă
   minVideoWidth: 900,
 };

@@ -178,7 +178,7 @@ const CAM = [
 ];
 
 const STEPS = [
-  { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit la VANGHELIS TRANS.', body: 'Derulează pentru a intra în parcul de utilaje.' },
+  { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit în parcul de utilaje.', body: 'Derulează pentru a intra în parcul de utilaje.' },
   { at: 0.20, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
   { at: 0.42, eyebrow: 'Încărcătoare', title: 'Încărcare și manipulare.', body: 'Pământ, moloz și agregate mutate rapid pe amplasament.' },
   { at: 0.62, eyebrow: 'Autobasculante', title: 'Transport de materiale.', body: 'Pământ, moloz, balast, nisip și pietriș.' },
@@ -188,8 +188,8 @@ const STEPS = [
 // Texte pentru varianta video (poarta -> excavator -> încărcător)
 const VIDEO_STEPS = [
   { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit în parcul de utilaje.', body: 'Derulează pentru a intra.' },
-  { at: 0.25, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
-  { at: 0.62, eyebrow: 'Încărcătoare', title: 'Încărcare și manipulare.', body: 'Pământ, moloz și agregate mutate rapid pe amplasament.' },
+  { at: 0.22, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
+  { at: 0.56, eyebrow: 'Încărcătoare', title: 'Încărcare și manipulare.', body: 'Pământ, moloz și agregate mutate rapid pe amplasament.' },
 ];
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
