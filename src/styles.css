@@ -461,3 +461,8 @@ button { font: inherit; color: inherit; }
 .contact__simple > p:not(.eyebrow) { color: var(--text-dim); margin-top: 20px; }
 .contact__simple .contact__info { margin-top: 28px; }
 .parc__caption[hidden] { display: none; }
+
+/* Logo final peste fundalul antracit al videoului; opacitatea urmează derularea (parc.js) */
+.parc__logo { display: none; position: absolute; z-index: 1; left: 50%; top: 50%; width: min(860px, 78vw); opacity: 0; transform: translate(-50%, -50%) scale(.96); pointer-events: none; will-change: opacity, transform; }
+.parc__logo img { display: block; width: 100%; height: auto; }
+.parc.is-video .parc__logo { display: block; }

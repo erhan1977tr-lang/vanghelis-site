@@ -191,7 +191,7 @@ const VIDEO_STEPS = [
   { at: 0.00, eyebrow: 'Parc de utilaje', title: 'Bine ai venit în parcul de utilaje.', body: 'Derulează pentru a intra.' },
   { at: 0.20, eyebrow: 'Excavatoare', title: 'Săpături, fundații, terasamente.', body: 'Utilaje cu operator pentru lucrări de excavații de orice dimensiune.' },
   { at: 0.58, eyebrow: 'Încărcare și transport', title: 'Din cupă, direct în camion.', body: 'Pământ, piatră și agregate mutate rapid pe amplasament.' },
-  { at: 0.80, hide: true },
+  { at: 0.84, hide: true },
 ];
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -226,6 +226,7 @@ export function initParc(root) {
   const capTitle = cap.querySelector('.parc__title');
   const capBody = cap.querySelector('.parc__body');
   const bar = root.querySelector('.parc__progress span');
+  const logo = root.querySelector('.parc__logo');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   let W = 0, H = 0, target = 0, cur = 0, raf = null, step = -1;
@@ -267,6 +268,12 @@ export function initParc(root) {
     if (video) {
       wantT = p * Math.max(0, video.duration - 0.05);
       seek();
+      if (logo) {
+        const [a, b] = parcCfg.logoIn || [0.88, 0.97];
+        const l = seg(p, a, b);
+        logo.style.opacity = l.toFixed(3);
+        logo.style.transform = `translate(-50%, -50%) scale(${(0.96 + 0.04 * l).toFixed(4)})`;
+      }
       caption(p);
       return;
     }
