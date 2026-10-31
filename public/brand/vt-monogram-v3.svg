@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="420 100 690 410" width="690" height="410">
+  <!-- VT monogram reconstruit după afișul promoțional (părțile acoperite de utilaje completate geometric) -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0d08a"/>
+      <stop offset=".45" stop-color="#c99b55"/>
+      <stop offset="1" stop-color="#8f6a34"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset=".80" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="m" maskUnits="userSpaceOnUse" x="420" y="100" width="690" height="410">
+      <rect x="420" y="100" width="690" height="410" fill="url(#fade)"/>
+    </mask>
+  </defs>
+  <g mask="url(#m)" fill="url(#g)">
+    <!-- V + bara T -->
+    <path d="M430 108 L532 108 L624 267 L710 171 L1058 171 L1098 108 L725 108 L578 362 Z"/>
+    <!-- lama subțire -->
+    <path d="M792 225 L760 302 L735 307 Z"/>
+    <!-- piciorul T -->
+    <path d="M833 192 L921 192 L898 505 L800 505 Z"/>
+    <!-- drumul: asfalt -->
+    <path fill="#151412" d="M585 380 Q680 318 905 306 L905 314 C730 345 655 410 645 505 L600 505 Z"/>
+    <!-- marginea de sus -->
+    <path d="M585 380 Q680 318 905 306 L906 300 Q676 310 580 372 Z"/>
+    <!-- banda groasă -->
+    <path d="M645 505 C655 410 730 345 905 314 L905 322 C780 345 705 400 697 505 Z"/>
+    <!-- marcaje -->
+    <g stroke="url(#g)" stroke-width="5" stroke-linecap="butt" fill="none">
+      <path d="M632 400 L650 386"/>
+      <path d="M672 368 L695 355"/>
+      <path d="M716 344 L740 334"/>
+      <path d="M762 326 L786 320"/>
+      <path d="M808 315 L832 312"/>
+      <path d="M854 310 L876 309"/>
+    </g>
+  </g>
+</svg>

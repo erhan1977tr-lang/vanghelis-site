@@ -465,4 +465,5 @@ button { font: inherit; color: inherit; }
 /* Logo final peste fundalul antracit al videoului; opacitatea urmează derularea (parc.js) */
 .parc__logo { display: none; position: absolute; z-index: 1; left: 50%; top: 50%; width: min(860px, 78vw); opacity: 0; transform: translate(-50%, -50%) scale(.96); pointer-events: none; will-change: opacity, transform; }
 .parc__logo img { display: block; width: 100%; height: auto; }
+.parc__logo .parc__logo-mark { width: 34%; margin: 0 auto clamp(10px, 2vh, 22px); }
 .parc.is-video .parc__logo { display: block; }
