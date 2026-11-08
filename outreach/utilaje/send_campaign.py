@@ -74,15 +74,18 @@ def log(row: dict) -> None:
 
 
 def sent_folder(imap: imaplib.IMAP4_SSL) -> str | None:
-    typ, data = imap.list()
-    names = [d.decode(errors="replace") for d in (data or []) if d]
-    for line in names:
-        if "\\Sent" in line:
-            return line.rsplit(' "', 1)[-1].strip('"') if ' "' in line else line.split()[-1]
-    for cand in ("INBOX.Sent", "Sent", "INBOX.Sent Items", "Sent Items"):
-        if any(line.endswith(cand) or line.endswith(f'"{cand}"') for line in names):
-            return cand
-    return None
+    """returns the Sent folder name already quoted for IMAP commands"""
+    import re
+    pat = re.compile(r'\((?P<flags>[^)]*)\) (?:"[^"]*"|NIL) (?P<name>.+)')
+    _, data = imap.list()
+    boxes = []
+    for raw in data or []:
+        m = pat.match(raw.decode(errors="replace"))
+        if m:
+            boxes.append((m["flags"], m["name"].strip().strip('"')))
+    name = next((n for f, n in boxes if "\\Sent" in f), None) or next(
+        (c for c in ("INBOX.Sent", "Sent", "INBOX.Sent Items", "Sent Items") if any(n == c for _, n in boxes)), None)
+    return None if name is None else '"' + name.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
 def main() -> None:
@@ -142,7 +145,7 @@ def main() -> None:
                 ok += 1
                 if imap and folder:
                     try:
-                        imap.append(folder, "\\Seen", imaplib.Time2Internaldate(time.time()), msg.as_bytes())
+                        imap.append(folder, "(\\Seen)", imaplib.Time2Internaldate(time.time()), msg.as_bytes())
                     except Exception as e:
                         row["detay"] = f"kopya eklenemedi: {e}"
         except smtplib.SMTPException as e:
